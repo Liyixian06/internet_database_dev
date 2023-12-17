@@ -36,7 +36,32 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+    $navItems=[
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'News', 'url' => ['/site/news']],
+        ['label'=> 'Charts','url'=> ['/site/charts']],
+        ['label'=> 'Review','url'=> ['/site/review']],
+        //['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label'=> 'Comments', 'url' => ['/comment/show']],
+        ['label'=> 'CommentManagement','url'=> ['/comment/index']],
+      ];
+      if (Yii::$app->user->isGuest) {
+        array_push($navItems,['label' => 'Sign In', 'url' => ['/user/login']],
+            //['label' => 'Sign Up', 'url' => ['/user/register']]
+        );
+      } else {
+        array_push($navItems,['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post']]
+        );
+      }
     echo Nav::widget([
+        'options' => ['class' => 'navbar-nav'],
+        'items' => $navItems,
+    ]);
+        
+    /*echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
@@ -54,9 +79,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
-                    . '</li>'
+                    . '</li>',
+            [   
+                'label'=> 'Country', 
+                'items' => [
+                    ['label' => 'View', 'url' => ['/country/index']],
+                    ['label'=> 'Create','url'=> ['/country/create']],
+                ],
+            ],
         ]
-    ]);
+    ]);*/
     NavBar::end();
     ?>
 </header>

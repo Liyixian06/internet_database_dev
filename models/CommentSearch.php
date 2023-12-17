@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\country;
+use app\models\Comment;
 
 /**
- * CountrySearch represents the model behind the search form of `app\models\country`.
+ * CommentSearch represents the model behind the search form of `app\models\Comment`.
  */
-class CountrySearch extends country
+class CommentSearch extends Comment
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class CountrySearch extends country
     public function rules()
     {
         return [
-            [['code', 'name'], 'safe'],
-            [['population'], 'integer'],
+            [['id', 'user_id', 'permissions', 'created_at', 'updated_at'], 'integer'],
+            [['content'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class CountrySearch extends country
      */
     public function search($params)
     {
-        $query = country::find();
+        $query = Comment::find();
 
         // add conditions that should always apply here
 
@@ -58,11 +58,17 @@ class CountrySearch extends country
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'population' => $this->population,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'permissions' => $this->permissions,
+            //'permissions' => Comment::PERMISSION_PUBLIC,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'content', $this->content]);
+
+        $query->orderBy('created_at DESC');
 
         return $dataProvider;
     }

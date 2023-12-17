@@ -1,24 +1,24 @@
 <?php
 
-use app\models\country;
+use app\models\Comment;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\CountrySearch $searchModel */
+/** @var app\models\CommentSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Countries';
+$this->title = 'Comments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="country-index">
+<div class="comment-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Country', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Comment', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,13 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'code',
-            'name',
-            'population',
+            'id',
+            'user_id',
+            'user.username',
+            'content:ntext',
+            'permissions',
+            'created_at',
+            'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, country $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'code' => $model->code]);
+                'urlCreator' => function ($action, Comment $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
         ],

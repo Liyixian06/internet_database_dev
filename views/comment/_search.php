@@ -4,22 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\CountrySearch $model */
+/** @var app\models\CommentSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="country-search">
+<div class="comment-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'code') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'user_id') ?>
 
-    <?= $form->field($model, 'population') ?>
+    <?= $form->field($model, 'content') ?>
+
+    <?= $form->field($model, 'permissions') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

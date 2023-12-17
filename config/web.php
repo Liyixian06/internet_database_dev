@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'timeZone' => 'Asia/Shanghai',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -19,23 +20,46 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Uliekrd5tLNxU8CXkvszt4_yGVXXuZJf',
+            'enableCookieValidation' => false,
+            'enableCsrfValidation' => false,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
+        /*'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-        ],
+        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
+        /*'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
             // send all mails to a file by default.
             'useFileTransport' => true,
-        ],
+        ],*/
+        'mailer' => [
+            'class' => '\yii\swiftmailer\Mailer',
+            //'class' => \yii\symfonymailer\Mailer::class,
+            //'viewPath' => '@app/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                //'scheme' => 'smtps',
+                'host' => 'smtp.qq.com',
+                'username' => 'liyixian1006@qq.com',
+                //'username' => '2110577@mail.nankai.edu.cn',
+                'password' => 'axtctwmcyyvbeccg',
+                'port' => '465',
+                'encryption' => 'ssl',
+                //'dsn' => 'native://default',
+                ],
+            'messageConfig'=> [
+                'charset' => 'UTF-8',
+                'from'=> ['liyixian1006@qq.com'=>'admin'],
+            ],
+        ],    
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -54,6 +78,21 @@ $config = [
             ],
         ],
         */
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'modelMap' => [
+                'User' => 'app\models\User',
+            ],
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'admins' => ['admin']
+        ],
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+            'imageAllowExtensions'=>['jpg','png','gif']
+        ],
     ],
     'params' => $params,
 ];
