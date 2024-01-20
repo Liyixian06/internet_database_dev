@@ -145,6 +145,6 @@ class SiteController extends Controller
 
     public function actionReview()
     {
-        return $this->render('review');
+        return $this->redirect('/review/item-list');
     }
 }
