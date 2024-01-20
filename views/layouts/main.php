@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use app\models\User;
 
 AppAsset::register($this);
 
@@ -36,6 +37,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+    $manageItems=[];
     $navItems=[
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'News', 'url' => ['/site/news']],
@@ -43,19 +45,23 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         ['label'=> 'Review','url'=> ['/site/review']],
         //['label' => 'Contact', 'url' => ['/site/contact']],
         ['label' => 'About', 'url' => ['/site/about']],
-        ['label'=> 'Comments', 'url' => ['/comment/show']],
-        ['label'=> 'CommentManagement','url'=> ['/comment/index']],
-      ];
-      if (Yii::$app->user->isGuest) {
+        ['label'=> 'Comments','url'=> ['/comment/show']],
+        //['label'=> 'CommentManagement','url'=> ['/comment/index']],
+    ];
+    if (Yii::$app->user->isGuest) {
         array_push($navItems,['label' => 'Sign In', 'url' => ['/user/login']],
             //['label' => 'Sign Up', 'url' => ['/user/register']]
         );
-      } else {
+    } else {
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+            array_push($manageItems,['label'=> 'comments', 'url'=> ['/comment/index']]);
+            array_push($navItems, ['label'=> 'Manage','items'=> $manageItems]);
+        }
         array_push($navItems,['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']]
         );
-      }
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => $navItems,

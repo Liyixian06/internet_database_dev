@@ -40,7 +40,7 @@ class CommentController extends Controller
                         [
                             'actions' => ['show'],
                             'allow' => true,
-                            'roles' => [User::ROLE_USER, User::ROLE_ADMIN],
+                            'roles' => ['?',User::ROLE_USER, User::ROLE_ADMIN],
                         ],
                         [
                             'actions' => ['index','view','update','delete'],

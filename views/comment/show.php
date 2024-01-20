@@ -20,9 +20,14 @@ $this->registerCssFile('@web/css/comment.css'); // from https://codepen.io/tahmi
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        Leave your comment here!
-    </p>
+    <?php if(\Yii::$app->user->isGuest){ ?>
+        <p>
+            <?= Html::a(Yii::t('user', 'Sign in'), ['/user/security/login']) ?>
+            to leave comments!
+        </p>
+    <?php } else {?>
+        <p>Leave your comment here!</p>
+    <?php }?>
 
     <div id = 'create' class="comment-create">
         <?= $this->render('_form', [
@@ -38,10 +43,11 @@ $this->registerCssFile('@web/css/comment.css'); // from https://codepen.io/tahmi
 </div>
 
 <?php 
-    foreach ($dataProvider->getModels() as $comment) { 
-        $username = $comment->user->username;
-        $comment_date = date('Y-m-d H:i:s', $comment->created_at);
-        $content = $comment->content;
+    foreach ($dataProvider->getModels() as $comment) {
+        if ($comment->permissions == Comment::PERMISSION_PUBLIC) {
+            $username = $comment->user->username;
+            $comment_date = date('Y-m-d H:i:s', $comment->created_at);
+            $content = $comment->content;
 ?>
     <div class="comment-thread">
     <details open class="comment" id="comment-1">
@@ -66,5 +72,6 @@ $this->registerCssFile('@web/css/comment.css'); // from https://codepen.io/tahmi
     </details>
     </div>
 <?php
+        }
     }
 ?>
