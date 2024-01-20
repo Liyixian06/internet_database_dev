@@ -55,6 +55,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     } else {
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             array_push($manageItems,['label'=> 'comments', 'url'=> ['/comment/index']]);
+            array_push($manageItems,['label'=> 'review', 'url'=> ['/review/index']]);
             array_push($navItems, ['label'=> 'Manage','items'=> $manageItems]);
         }
         array_push($navItems,['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
