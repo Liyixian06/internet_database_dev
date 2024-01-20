@@ -4,9 +4,7 @@
      * Coding by zhaomengyu 2111038,20240120
      * This is reviewControler
      */
- ?>
-<?php
-echo $this->context->renderPartial('_copyright'); ?>
+?>
 <?php
 use yii\widgets\LinkPager;
 use app\models\Review;
@@ -20,7 +18,7 @@ $this->registerCssFile('@web/css/review.css');
 <form action="<?= Yii::$app->urlManager->createUrl(['review/search-title']) ?>" method="get">
     <div class='search-box'>
     <input type="text" name="keyword" placeholder="输入关键词搜索">
-    <button type="submit">搜索</button>
+    <button type="submit">Search</button>
     </div>
 </form>
 

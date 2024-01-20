@@ -8,8 +8,6 @@ use yii\helpers\Html;
      $this->registerCssFile('@web/css/detail.css');
  ?>
 
-<?php echo $this->context->renderPartial('_copyright'); ?>
-
 <div class="t">
  <h1><?php echo $item['title'] ?></h1>
 Date: <b><?php echo $item['date'] ?></b>
