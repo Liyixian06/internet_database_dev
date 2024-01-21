@@ -26,6 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => [
+
+            'contentOptions' => [
+                'width'=>'200' //调整弹窗页面的宽度
+
+
+            ],
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -34,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'date',
             [
+
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Review $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);

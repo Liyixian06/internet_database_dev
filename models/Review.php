@@ -34,6 +34,7 @@ class Review extends ActiveRecord
             [['id', 'title'], 'required'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['source'],'string'],
             [['date'], 'safe'],
         ];
     }
@@ -48,6 +49,7 @@ class Review extends ActiveRecord
             'title' => 'Title',
             'content' => 'Content',
             'date' => 'Date',
+            'source' => 'Source'
         ];
     }
 }

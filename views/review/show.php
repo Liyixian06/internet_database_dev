@@ -47,6 +47,7 @@ $this->registerCssFile('@web/css/comment.css'); // from https://codepen.io/tahmi
             $title = $review->title;
             $review_date =  $review->date;
             $content = $review->content;
+            $source = $review->source;
 ?>
     <div class="comment-thread">
     <details open class="comment" id="comment-1">
@@ -57,9 +58,6 @@ $this->registerCssFile('@web/css/comment.css'); // from https://codepen.io/tahmi
             <div class="comment-heading">
                 <div class="comment-info">
                     <a href="#" class="comment-author"><?php echo $title?></a>
-                    <p class="m-0">
-                        <?php echo $review_date?>
-                    </p>
                 </div>
             </div>
         </summary>

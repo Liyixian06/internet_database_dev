@@ -4,7 +4,9 @@
      * Coding by zhaomengyu 2111038,20240120
      * This is reviewControler
      */
-?>
+ ?>
+<?php
+echo $this->context->renderPartial('_copyright'); ?>
 <?php
 use yii\widgets\LinkPager;
 use app\models\Review;
@@ -18,7 +20,7 @@ $this->registerCssFile('@web/css/review.css');
 <form action="<?= Yii::$app->urlManager->createUrl(['review/search-title']) ?>" method="get">
     <div class='search-box'>
     <input type="text" name="keyword" placeholder="输入关键词搜索">
-    <button type="submit">Search</button>
+    <button type="submit">搜索</button>
     </div>
 </form>
 
@@ -28,7 +30,7 @@ $this->registerCssFile('@web/css/review.css');
     <?php foreach($models as $item): ?>
       <li>
 
-            <a href="<?= Yii::$app->urlManager->createUrl(['review/item-detail' , 'id' => $item->id]) ?>"> <?= $item->title ?> </a>
+            <a href="<?= Yii::$app->urlManager->createUrl(['review/item-detail' , 'id' => $item->id]) ?>"> <?=$item->title?> </a>
             <?php echo Yii::$app->formatter->asDatetime($item->date, 'php:d/m/Y'); ?></li>
 
     <?php endforeach; ?>

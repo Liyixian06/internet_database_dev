@@ -12,7 +12,14 @@ use yii\redactor\widgets\Redactor;
 <div class="comment-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'source')->widget(Redactor::className(),
+        [
+            'clientOptions' => [
+                'toolbar' => false, // 禁用工具栏
 
+            ]
+        ]
+        ) ?>
     <?= $form->field($model, 'title')->widget(Redactor::className(),
         [
             'clientOptions' => [
@@ -27,14 +34,15 @@ use yii\redactor\widgets\Redactor;
         ) ?>
     <?= $form->field($model, 'content')->widget(Redactor::className(),
         [
-            'paragraphize' => false,
             'clientOptions' => [
+                'paragraphize' => false,
                 'imageManagerJson' => ['/redactor/upload/image-json'],
                 'imageUpload' => ['/redactor/upload/image'],
                 'fileUpload' => ['/redactor/upload/file'],
                 'lang' => 'zh_cn',
                 'plugins' => ['clips', 'fontcolor','imagemanager']
             ]
+
         ]
         ) ?>
 

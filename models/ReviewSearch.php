@@ -20,6 +20,7 @@ class ReviewSearch extends Review
             [['id'], 'integer'],
             [['title'], 'safe'],
             [['date'], 'safe'],
+            [['source'],'safe'],
             [['content'], 'safe'],
         ];
     }
@@ -67,7 +68,7 @@ class ReviewSearch extends Review
         $query->andFilterWhere(['like', 'content', $this->content]);
         $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'date', $this->date]);
-
+        $query->andFilterWhere(['like', 'source', $this->source]);
         $query->orderBy('id DESC');
 
         return $dataProvider;

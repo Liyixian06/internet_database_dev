@@ -13,7 +13,7 @@ $this->title = $model->id;
 ?>
 <div class="comment-view">
 
-    <p><?=Html::a('&laquo; Back to Review',['index'], ['class' => "btn btn-outline-secondary"]) ?></p>
+    <p><?=Html::a('&laquo; Back to Review',['show'], ['class' => "btn btn-outline-secondary"]) ?></p>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -31,6 +31,7 @@ $this->title = $model->id;
         'attributes' => [
             'id',
             'title:ntext',
+            'source:ntext',
             'content:ntext',
             'date',
         ],

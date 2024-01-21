@@ -6,10 +6,7 @@ use app\models\ReviewSearch;
 use yii\web\Controller;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
-use app\components\AccessRule;
-use app\models\User;
+use yii\helpers\Html;
  /**
      * Team:
      * Coding by zhaomengyu 2111038,20240120
@@ -17,43 +14,6 @@ use app\models\User;
      */
 class ReviewController extends Controller
 { // 4. actions are handled from controller functions whose name starts with 'action' and the first letter of each word is uppercase;
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'ruleConfig' => [
-                        'class' => AccessRule::className(),
-                    ],
-                    'only' => ['index','update','delete','view','show'],
-                    'rules' => [
-                        [
-                            'actions' => ['show'],
-                            'allow' => true,
-                            'roles' => ['?',User::ROLE_USER, User::ROLE_ADMIN],
-                        ],
-                        [
-                            'actions' => ['index','view','update','delete'],
-                            'allow' => true,
-                            'roles' => [User::ROLE_ADMIN],
-                        ],
-                    ],
-                ],
-            ]
-        );
-    }
-
 public $model;
 public function actions()
 {
@@ -102,7 +62,12 @@ public function actionItemDetail($id)
     $item = null;
     foreach($reviewList as $n)
     {
-        if($id == $n->id) $item = $n;
+        if($id == $n->id) {
+         $n->title = strip_tags($n->title);
+        $n->source = strip_tags($n->source);
+        $item = $n;
+
+        }
     }
 
     return $this->render('itemDetail', ['item' => $item]);
